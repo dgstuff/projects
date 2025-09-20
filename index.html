@@ -3,54 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Projects</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Dhruv's Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Anonymous+Pro&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --background-color: #363232;
+      --background-alt: #3b3b3b;
+      --alt-color: #e8b7b7;
+      --font-color: rgb(230, 228, 228);
+      --purple-font: rgb(182, 182, 253);
+      --grey-font: rgb(124, 123, 123);
+    }
+
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #f0f4f8, #d9e2ec);
-      padding: 2rem;
-      color: #333;
+      background-color: var(--background-color);
+      font-family: 'Roboto', sans-serif;
+      color: var(--font-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 2em;
     }
 
     h1 {
+      font-size: 2.2em;
+      margin-bottom: 0.5em;
       text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2.5rem;
-      color: #102a43;
+      color: var(--alt-color);
     }
 
-    #projects-container {
+    .intro {
+      font-size: 1em;
+      color: var(--grey-font);
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 2em;
+    }
+
+    .container {
+      padding: 25px;
+      border-radius: 25px;
+      background-color: var(--background-alt);
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
     }
 
     .project {
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 1.5rem;
-      max-width: 320px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .project:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      border-left: 2px solid var(--alt-color);
+      padding-left: 10px;
+      margin-top: 1em;
+      text-align: left;
+      width: 100%;
     }
 
     .project h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.25rem;
-      color: #0077cc;
+      color: var(--alt-color);
+      margin-bottom: 0.4em;
     }
 
     .project h3 a {
@@ -59,21 +79,28 @@
     }
 
     .project p {
-      font-size: 1rem;
-      color: #334e68;
+      color: var(--font-color);
+      font-size: 13px;
+      line-height: 1.4;
     }
 
-    @media (max-width: 600px) {
-      .project {
-        width: 100%;
-        max-width: none;
-      }
+    .footer {
+      width: 100%;
+      color: var(--grey-font);
+      font-size: 0.75em;
+      padding: 1em;
+      text-align: center;
+      margin-top: 2em;
     }
   </style>
 </head>
 <body>
-  <h1>My Projects</h1>
-  <div id="projects-container">Loading projects...</div>
+  <h1>Dhruv's Projects</h1>
+  <p class="intro">Hey there 👋 — I'm Dhruv, and this is a quick peek into the stuff I've been building lately. These projects are powered by curiosity, caffeine, and a lot of late-night debugging.</p>
+
+  <div class="container" id="projects-container">Loading projects...</div>
+
+  <div class="footer">Handcrafted by Dhruv • Hosted on GitHub Pages</div>
 
   <script>
     fetch('projects.json')
@@ -92,7 +119,7 @@
         });
       })
       .catch(error => {
-        document.getElementById('projects-container').innerHTML = '<p>Failed to load projects.</p>';
+        document.getElementById('projects-container').innerHTML = '<p>Oops, something went wrong while loading the projects.</p>';
         console.error('Error loading JSON:', error);
       });
   </script>
