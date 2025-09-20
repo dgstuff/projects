@@ -13,5 +13,9 @@
     "name": "Portfolio",
     "url": "https://github.com/dg8ab/dhruvportfolio/",
     "description": "The portfolio! Yep, it's completely open-source and free for you to use!"
-  }
+  },
+{
+  "name": "Math Quiz",
+    "url": "https://mathquiz.dgps.dev",
+    "description": "This is a simple math quiz. It is on my level and is a medium sized difficulty."
 ]
