@@ -119,17 +119,8 @@
       cursor: default;
     }
 
-    a {
-      color: var(--alt-color);
-      text-decoration: none;
-      border-bottom: 1px dashed transparent;
-      transition: color 0.2s ease, border-bottom 0.2s ease;
-    }
-
-    a:hover {
-      color: var(--link-hover);
-      border-bottom: 1px dashed currentColor;
-    }
+    a { color: var(--alt-color); text-decoration: none; border-bottom: 1px dashed transparent; transition: color 0.2s ease, border-bottom 0.2s ease; }
+    a:hover { color: var(--link-hover); border-bottom: 1px dashed currentColor; }
 
     .footer {
       width: 100%;
@@ -154,10 +145,7 @@
 
   <script>
     fetch('./projects.json')
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-        return res.json();
-      })
+      .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! ${res.status}`))
       .then(projects => {
         const container = document.getElementById('projects-container');
         container.innerHTML = '';
@@ -168,11 +156,18 @@
         }
 
         projects.forEach(project => {
-          // Use tags from JSON
-          const tags = Array.isArray(project.tags) ? project.tags : [];
+          const tags = [];
 
-          // Always add Web tag if URL exists
-          if (project.url && !tags.includes("🌐 Web")) tags.unshift("🌐 Web");
+          // Auto-detect tags based on keywords
+          if (project.url) tags.push("🌐 Web");
+
+          const text = ((project.name || "") + " " + (project.description || "")).toLowerCase();
+
+          if (text.includes("ai")) tags.push("🤖 AI");
+          if (text.includes("game")) tags.push("🎮 Game");
+          if (text.includes("tool")) tags.push("🛠️ Tool");
+          if (text.includes("quiz")) tags.push("📝 Quiz");
+          if (text.includes("portfolio")) tags.push("📂 Portfolio");
 
           const div = document.createElement('div');
           div.className = 'project';
@@ -188,7 +183,7 @@
       })
       .catch(err => {
         document.getElementById('projects-container').innerHTML = '<p>⚠️ Oops, something went wrong while loading the projects.</p>';
-        console.error('Error loading projects.json:', err);
+        console.error(err);
       });
   </script>
 </body>
