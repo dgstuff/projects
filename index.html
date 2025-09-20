@@ -11,7 +11,6 @@
       --background-alt: #3b3b3b;
       --alt-color: #e8b7b7;
       --font-color: rgb(230, 228, 228);
-      --purple-font: rgb(182, 182, 253);
       --grey-font: rgb(124, 123, 123);
     }
 
@@ -58,6 +57,7 @@
       text-align: center;
       max-width: 600px;
       width: 100%;
+      min-height: 100px;
     }
 
     .project {
@@ -100,14 +100,28 @@
 
   <div class="container" id="projects-container">Loading projects...</div>
 
-  Handcrafted by <a href="https://github.com/dgstuff">Dhruv</a> • Hosted on <a href="https://github.io">Github Pages</a>
+  <div class="footer">
+    Handcrafted by <a href="https://github.com/dgstuff" target="_blank" rel="noopener noreferrer">Dhruv</a> • Hosted on <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+  </div>
 
   <script>
-    fetch('projects.json')
-      .then(response => response.json())
+    // Fetch projects.json from the same directory
+    fetch('./projects.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(projects => {
         const container = document.getElementById('projects-container');
         container.innerHTML = '';
+        
+        if (!Array.isArray(projects) || projects.length === 0) {
+          container.innerHTML = '<p>No projects found.</p>';
+          return;
+        }
+
         projects.forEach(project => {
           const div = document.createElement('div');
           div.className = 'project';
@@ -119,8 +133,8 @@
         });
       })
       .catch(error => {
-        document.getElementById('projects-container').innerHTML = '<p>Oops, something went wrong while loading the projects.</p>';
-        console.error('Error loading JSON:', error);
+        document.getElementById('projects-container').innerHTML = '<p>⚠️ Oops, something went wrong while loading the projects.</p>';
+        console.error('Error loading projects.json:', error);
       });
   </script>
 </body>
