@@ -48,29 +48,36 @@
     }
 
     .container {
-      padding: 25px;
-      border-radius: 25px;
-      background-color: var(--background-alt);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 600px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5em;
       width: 100%;
-      min-height: 100px;
+      max-width: 900px;
+    }
+
+    @media (min-width: 600px) {
+      .container {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .project {
-      border-left: 2px solid var(--alt-color);
-      padding-left: 10px;
-      margin-top: 1em;
-      text-align: left;
-      width: 100%;
+      background-color: var(--background-alt);
+      border-radius: 15px;
+      padding: 1.2em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-left: 3px solid var(--alt-color);
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     }
 
     .project h3 {
       color: var(--alt-color);
-      margin-bottom: 0.4em;
+      margin-bottom: 0.6em;
+      font-size: 1.2em;
     }
 
     .project h3 a {
@@ -80,20 +87,20 @@
 
     .project p {
       color: var(--font-color);
-      font-size: 13px;
-      line-height: 1.4;
+      font-size: 0.95em;
+      line-height: 1.5;
     }
 
     .footer {
       width: 100%;
       color: var(--grey-font);
-      font-size: 0.75em;
-      padding: 1em;
+      font-size: 0.8em;
+      padding: 1.5em;
       text-align: center;
-      margin-top: 2em;
+      margin-top: 3em;
+      border-top: 1px solid var(--grey-font);
     }
   </style>
-  <link rel="icon" href="https://avatars.githubusercontent.com/u/233354553?v=4&size=40" type="image/png">
 </head>
 <body>
   <h1>Dhruv's Projects</h1>
@@ -106,18 +113,15 @@
   </div>
 
   <script>
-    // Fetch projects.json from the same directory
     fetch('./projects.json')
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         return response.json();
       })
       .then(projects => {
         const container = document.getElementById('projects-container');
         container.innerHTML = '';
-        
+
         if (!Array.isArray(projects) || projects.length === 0) {
           container.innerHTML = '<p>No projects found.</p>';
           return;
@@ -140,3 +144,4 @@
   </script>
 </body>
 </html>
+
