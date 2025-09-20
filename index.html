@@ -17,11 +17,7 @@
       --tag-color: #e8b7b7;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background-color: var(--background-color);
@@ -30,7 +26,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       min-height: 100vh;
       padding: 2em;
     }
@@ -59,9 +54,7 @@
     }
 
     @media (min-width: 600px) {
-      .container {
-        grid-template-columns: 1fr 1fr;
-      }
+      .container { grid-template-columns: 1fr 1fr; }
     }
 
     .project {
@@ -74,7 +67,7 @@
 
     .project:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
     }
 
     .project h3 {
@@ -116,8 +109,8 @@
       font-size: 0.75em;
       padding: 0.2em 0.6em;
       border-radius: 12px;
-      display: inline-block;
       font-weight: 500;
+      display: inline-block;
     }
 
     .project .tag:hover {
@@ -161,9 +154,9 @@
 
   <script>
     fetch('./projects.json')
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        return response.json();
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json();
       })
       .then(projects => {
         const container = document.getElementById('projects-container');
@@ -175,14 +168,11 @@
         }
 
         projects.forEach(project => {
-          // Dynamic tag generation
-          const tags = [];
+          // Use tags from JSON
+          const tags = Array.isArray(project.tags) ? project.tags : [];
 
-          if (project.url) tags.push("🌐 Web");
-          if (/AI/i.test(project.name + " " + project.description)) tags.push("🤖 AI");
-          if (/game/i.test(project.name + " " + project.description)) tags.push("🎮 Game");
-          if (/tool/i.test(project.name + " " + project.description)) tags.push("🛠️ Tool");
-          if (/quiz/i.test(project.name + " " + project.description)) tags.push("📝 Quiz");
+          // Always add Web tag if URL exists
+          if (project.url && !tags.includes("🌐 Web")) tags.unshift("🌐 Web");
 
           const div = document.createElement('div');
           div.className = 'project';
@@ -196,9 +186,9 @@
           container.appendChild(div);
         });
       })
-      .catch(error => {
+      .catch(err => {
         document.getElementById('projects-container').innerHTML = '<p>⚠️ Oops, something went wrong while loading the projects.</p>';
-        console.error('Error loading projects.json:', error);
+        console.error('Error loading projects.json:', err);
       });
   </script>
 </body>
