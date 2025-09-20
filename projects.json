@@ -1,22 +1,7 @@
 [
   {
-    "name": "xg4",
-    "url": "https://xg4.org",
-    "description": "xg4 is a next-gen AI chatbot built on my proprietary DeepRock models."
-  },
-  {
-    "name": "Helper",
-    "url": "https://helper.xg4.org",
-    "description": "Helper is an AI chatbot designed to assist with any task."
-  },
-  {
-    "name": "Portfolio",
-    "url": "https://github.com/dg8ab/dhruvportfolio/",
-    "description": "The portfolio! Yep, it's completely open-source and free for you to use!"
-  },
-  {
-    "name": "Math Quiz",
-    "url": "https://mathquiz.dgps.dev",
-    "description": "This is a simple math quiz. It is on my level and is a medium sized difficulty."
+    "name": "Test Project",
+    "url": "https://example.com",
+    "description": "This is just a test."
   }
 ]
