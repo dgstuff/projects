@@ -18,5 +18,9 @@
     "name": "Math Quiz",
     "url": "https://mathquiz.dgps.dev",
     "description": "This is a simple math quiz. It is on my level and is a medium sized difficulty."
-  }
+  },
+{
+ "name": "DAR",
+  "url": "https://dar.dgps.dev",
+  "description": "DAR is an AI assistant that is incredibly futuristic, it is voice only so all you need to do is talk."
 ]
